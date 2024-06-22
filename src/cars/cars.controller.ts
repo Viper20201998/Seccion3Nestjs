@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 
 @Controller('cars')
@@ -14,7 +14,9 @@ export class CarsController {
   //Solucion habria que validar que pase solo numeros que si no es un numero que no lo envie.
   //pero si los id estan compuestos por hash habria que validar en el otro metodo cars.service.
   @Get(':id')
-  getCarById(@Param('id') id: string) {
-    return this.carsService.findOneById(+id);
+  //importamos el ParseIntPipe para convertir lo que viene a numero
+  getCarById(@Param('id', ParseIntPipe) id: number) {
+    console.log({ id });
+    return this.carsService.findOneById(id);
   }
 }
