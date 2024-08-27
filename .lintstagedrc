@@ -1,3 +1,4 @@
 {
-"**/*.{js,jsx,ts}": ["slint"]
+  "*.{js,ts}": "eslint --fix",
+  "*": "prettier -w -u"
 }
