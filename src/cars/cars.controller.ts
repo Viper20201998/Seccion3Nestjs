@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common'
@@ -23,8 +24,9 @@ export class CarsController {
   //Solucion habria que validar que pase solo numeros que si no es un numero que no lo envie.
   //pero si los id estan compuestos por hash habria que validar en el otro metodo cars.service.
   @Get(':id')
-  //quitamos el ParseIntPipe por que nuestro id ya no es number es string.
-  getCarById(@Param('id') id: string) {
+  //Usaremos el pipe PaseUUIDPipe para validar nuestro uuid.
+  //Para validar los el uuid que sea de una version en especifico se crea una nueva instancia en el pipe.
+  getCarById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.carsService.findOneById(id)
   }
 
